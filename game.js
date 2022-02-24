@@ -3,7 +3,8 @@ const key = {
     keyValue : {
         37 : 'left',
         39 : 'right',
-        38 : 'up'
+        38 : 'up',
+        88 : 'attack'    // 키보드 자판 x키
     }
 }
 
@@ -11,14 +12,18 @@ const windowEvent = () => {
     window.addEventListener('keydown', e=> {
         // console.log(key.keyValue[e.which]);
         // keyDown의 키값은 keyValue의 value 값으로
-        key.keyDown[key.keyValue[e.which]] = true;
+        key.keyDown[key.keyValue[e.keyCode]] = true;
+        hero.keyMotion();
     });
     window.addEventListener('keyup', e=> {
         key.keyDown[key.keyValue[e.which]] = false;
+        hero.keyMotion();
     });
 }
 
+let hero;
 const init = () => {
+    hero = new Hero('.hero');
     windowEvent();
 }
 
